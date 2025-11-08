@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { Card } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
+import { Table54Plot } from "@/components/Table54Plot"
 import { averageVelocity, molarMassFromSlope, relativeError } from "@/lib/lab-calculator"
 
 interface Table4Data {
@@ -126,6 +127,7 @@ export function LabTable4Calculator({ tableDataArray }: Props) {
             </tbody>
           </table>
         </div>
+        <Table54Plot results={results} />
       )}
     </Card>
   )
