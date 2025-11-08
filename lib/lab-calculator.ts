@@ -73,3 +73,32 @@ export function molarMassFromSlope(slope: number): number {
   // slope = 8R / M => M = 8R / slope
   return (8 * GAS_CONSTANT) / slope
 }
+
+export function linearRegression(xs: number[], ys: number[]) {
+  const n = xs.length;
+  if (n === 0) return { slope: 0, intercept: 0, stderrSlope: 0 };
+
+  const xMean = xs.reduce((s, v) => s + v, 0) / n;
+  const yMean = ys.reduce((s, v) => s + v, 0) / n;
+
+  let num = 0;
+  let den = 0;
+  for (let i = 0; i < n; i++) {
+    num += (xs[i] - xMean) * (ys[i] - yMean);
+    den += (xs[i] - xMean) ** 2;
+  }
+
+  const slope = den === 0 ? 0 : num / den;
+  const intercept = yMean - slope * xMean;
+
+  // stderr of slope
+  let ssRes = 0;
+  for (let i = 0; i < n; i++) {
+    const yPred = intercept + slope * xs[i];
+    ssRes += (ys[i] - yPred) ** 2;
+  }
+
+  const stderrSlope = den === 0 || n <= 2 ? 0 : Math.sqrt(ssRes / (n - 2)) / Math.sqrt(den);
+
+  return { slope, intercept, stderrSlope };
+}
