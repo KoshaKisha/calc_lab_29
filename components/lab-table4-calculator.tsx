@@ -101,6 +101,7 @@ export function LabTable4Calculator({ tableDataArray }: Props) {
       </div>
 
       {results.length > 0 && (
+        <>
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
@@ -128,6 +129,7 @@ export function LabTable4Calculator({ tableDataArray }: Props) {
           </table>
         </div>
         <Table54Plot results={results} />
+        </>
       )}
     </Card>
   )
